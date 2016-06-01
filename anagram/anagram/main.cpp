@@ -7,55 +7,49 @@
 //
 
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 
 using namespace std;
 
-/*引数string 返り値string
-    渡されたstring型をabc順にソートしてstring型に戻して返す関数*/
-string sort(string str){
-    string str2;
-    vector<string> v;
-    
-    for(int i=0;i<16;i++){
-        v.push_back(str.substr(i,1));
-    }
-    sort(v.begin(),v.end());
-    
-    str2 = v[0];
-    for(int j=1;j<16;j++){
-        str2 = str2 + v[j];
-    }
-    return str2;
-}
-
 int main(){
-    string s, t, str, str2;
-    //ifstream reading_file; //?
+    string s, t, str, str2 = "_";
+    ifstream reading_file;
+    int x =0;
     
     cout << "16文字以下の文字列を入力してください：";
     cin >> s;
     
-    t = sort(s);
+    t = s;
+    sort(t.begin(),t.end());
     
-    cout << t << endl;
+    //cout << t << endl;
+
+    reading_file.open("/usr/share/dict/words", ios::in); //open dictionary
     
-    
-    //reading_file.open("/usr/share/dict/words", ios::in); //辞書を開く
-    
-  /*  if (ifs.fail())
+    if (reading_file.fail())
     {
         cerr << "失敗" << endl;
         return -1;
     }
-    while (getline(ifs, str))
+    while (getline(reading_file, str))
     {
-        str2 = sort(str);
-        if(str2 == t) && (str != s){
-            cout << str << endl;
+        if(str.length() <= 16){ //cut words over 16.
+            str2 = str;
+            sort(str2.begin(),str2.end());
+           /* if (str == "astronomer") {
+                cout << "Found astronomer! str2 is " << str2 << " and t is " << t << " is eq? " << (str2 == t) << " s is " << s << endl;
+            }*/
+            if((str2 == t) && (str != s)){
+                cout << str << endl;
+                x++;
+            }
         }
-    }*/
+    }
+    if(x==0){
+        cout << "No words." << endl;
+    }
     
     return 0;
 }
