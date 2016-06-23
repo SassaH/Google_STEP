@@ -56,22 +56,20 @@ def evaluate_by(tokens):
     ans=0
     while index < len(tokens):
         if tokens[index]['type'] == 'NUMBER':
-            if tokens[index - 1]['type'] == 'PLUS':
-                tokens2.append(tokens[index-1])
-                tokens2.append(tokens[index])
-            elif tokens[index - 1]['type'] == 'MINUS':
+            if tokens[index - 1]['type'] == 'PLUS' or tokens[index - 1]['type'] == 'MINUS':
                 tokens2.append(tokens[index-1])
                 tokens2.append(tokens[index])
             elif tokens[index - 1]['type'] == 'BY':
-                ans = tokens[index-2]['number'] * tokens[index]['number']
+                ans = tokens2[len(tokens2)-1]['number'] * tokens[index]['number']
                 tokens2.pop()
                 tokens2.append({'type': 'NUMBER', 'number': ans})
             elif tokens[index - 1]['type'] == 'DIV':
-                ans = tokens[index-2]['number'] / tokens[index]['number']
+                ans = tokens2[len(tokens2)-1]['number'] / tokens[index]['number']
                 tokens2.pop()
                 tokens2.append({'type': 'NUMBER', 'number': ans})
             else:
                 print 'Invalid syntax'
+        print tokens2
         index += 1
     return tokens2
 
