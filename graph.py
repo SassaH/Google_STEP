@@ -38,7 +38,7 @@ def make_par(nodes, edges):
 
 def partition(nodes,edges):
     count = 0
-    while count < 1000:
+    while count < 10:
         index = 0
         if  count_to(nodes[index]['node'], edges) != 0:
             nodes = make_par(nodes, edges)
@@ -47,7 +47,7 @@ def partition(nodes,edges):
         count += 1
     return nodes
 
-f = open('medium_data.txt', 'r')
+f = open('small_data.txt', 'r')
 line = f.readline() 
 count = 0
 nodes = []
@@ -61,7 +61,7 @@ while line:
         while count >= 0:
             line = f.readline()
             line = line.replace('\n','')
-            nodes.append({'node':line,'score':100,'next':0})
+            nodes.append({'node':line,'score':100.00,'next':0})
             count -= 1
         else:
             count = int(line)
@@ -74,8 +74,8 @@ while line:
             edges.append(token2)
             line = f.readline()
             count -= 1
-        print nodes    
-        print edges
+        #print nodes    
+        #print edges
     f.close
 
 print partition(nodes, edges)
