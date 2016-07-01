@@ -50,7 +50,6 @@ def find_right(tokens):
             count -= 1
         if count == 0:
             inside = False
-        #print  tokens[index], count
         index += 1
     return index
 
@@ -79,13 +78,11 @@ def tokenize(line):
     return tokens
 
 def evaluate_by(tokens):
-    #if tokens[0]['type'] != 'PLUS':
     tokens.insert(0, {'type': 'PLUS'}) # Insert a dummy '+' token
     index = 0
     tokens2 = []
     ans=0
     while index < len(tokens):
-        #print tokens[index]['type']
         if tokens[index]['type'] == 'NUMBER':
             if tokens[index-1]['type'] == 'PLUS' or tokens[index-1]['type'] == 'MINUS':
                 tokens2.append(tokens[index-1])
@@ -107,8 +104,6 @@ def evaluate_by(tokens):
 
 
 def evaluate(tokens):
-    #tokens.insert(0, {'type': 'PLUS'})
-    #print tokens
     answer = 0
     index = 1
     while index < len(tokens):
@@ -127,9 +122,7 @@ def evaluate_par(tokens):
     index = 0
     tokens2 = []
     ans = 0
-    #print tokens
     while index < len(tokens) :
-        #print index, tokens2
         if tokens[index]['type'] == 'LEFT':
             right = find_right(tokens[index+1:]) + index
             value = evaluate_par(tokens[index+1:right])
@@ -139,15 +132,12 @@ def evaluate_par(tokens):
     else:
         print tokens
         ans = evaluate_by(tokens)
-        #tokens = [{'type': 'NUMBER', 'number': ans}]
     return ans
 
 while True:
     print '> ',
     line = raw_input()
     tokens = tokenize(line)
-    #print evaluate_by(tokens)
     tokens2 = evaluate_par(tokens)
     print "answer = %f\n" % tokens2['number']
-    #print find_right(tokens)
     
